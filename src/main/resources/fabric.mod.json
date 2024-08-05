@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "autogg",
+  "version": "${version}",
+  "name": "Auto GG",
+  "description": "A simple Auto GG mod for Hypixel (and others)",
+  "authors": [
+    "LiamXSage",
+    "FlawCra"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/auto-gg",
+    "issues": "https://github.com/FlawCra/AutoGG/issues",
+    "sources": "https://github.com/FlawCra/AutoGG"
+  },
+  "license": "MIT",
+  "icon": "assets/autogg/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "cc.flawcra.autogg.Autogg"
+    ]
+  },
+  "mixins": [
+    "autogg.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

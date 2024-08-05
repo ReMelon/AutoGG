@@ -1,0 +1,114 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.time.Instant
+import java.util.*
+
+plugins {
+    id("com.modrinth.minotaur") version "2.+"
+    kotlin("jvm") version "2.0.0"
+    id("fabric-loom") version "1.7.1"
+    id("maven-publish")
+}
+
+val modVersion: String = Calendar.getInstance(TimeZone.getTimeZone("UTC")).run {
+    "${get(Calendar.YEAR)}.${get(Calendar.MONTH) + 1}.${get(Calendar.DAY_OF_MONTH)}"
+}
+
+version = modVersion
+group = project.property("maven_group") as String
+
+base {
+    archivesName.set(project.property("archives_base_name") as String)
+}
+
+val targetJavaVersion = 21
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+}
+
+
+repositories {
+    maven("https://nexus.flawcra.cc/repository/maven-mirrors/")
+}
+
+dependencies {
+    // To change the versions see the gradle.properties file
+    minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
+    mappings("net.fabricmc:yarn:${project.property("yarn_mappings")}:v2")
+    modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
+    modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
+
+    // Fabric API. This is technically optional, but you probably want it anyway.
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
+
+    modLocalRuntime("com.terraformersmc", "modmenu", "11.0.1")
+}
+
+modrinth {
+    token.set(System.getenv("MODRINTH_TOKEN")) // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
+    projectId.set("IC5fUZ7S") // This can be the project ID or the slug. Either will work!
+    versionNumber.set(modVersion) // You don't need to set this manually. Will fail if Modrinth has this version already
+    uploadFile.set(tasks.remapJar) // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    gameVersions.addAll(listOf(project.property("minecraft_version") as String)) // Must be an array, even with only one version
+    dependencies {
+        required.project("fabric-api")
+        required.project("fabric-language-kotlin")
+    }
+}
+
+tasks.processResources {
+    inputs.property("version", project.version)
+    inputs.property("minecraft_version", project.property("minecraft_version"))
+    inputs.property("loader_version", project.property("loader_version"))
+    filteringCharset = "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand(
+            "version" to project.version,
+            "minecraft_version" to project.property("minecraft_version"),
+            "loader_version" to project.property("loader_version"),
+            "kotlin_loader_version" to project.property("kotlin_loader_version")
+        )
+    }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    // If Javadoc is generated, this must be specified in that task too.
+    options.encoding = "UTF-8"
+    options.release.set(targetJavaVersion)
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions.jvmTarget.set(JvmTarget.fromTarget(targetJavaVersion.toString()))
+}
+
+tasks.jar {
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName}" }
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            artifactId = project.property("archives_base_name") as String
+            from(components["java"])
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
+    }
+}
