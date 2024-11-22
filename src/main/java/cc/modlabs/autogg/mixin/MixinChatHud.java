@@ -1,6 +1,6 @@
-package cc.flawcra.autogg.mixin;
+package cc.modlabs.autogg.mixin;
 
-import cc.flawcra.autogg.Autogg;
+import cc.modlabs.autogg.Autogg;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.MessageIndicator;
 import net.minecraft.network.message.MessageSignatureData;

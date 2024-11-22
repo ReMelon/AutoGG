@@ -1,4 +1,4 @@
-package cc.flawcra.autogg
+package cc.modlabs.autogg
 
 import net.minecraft.client.MinecraftClient;
 

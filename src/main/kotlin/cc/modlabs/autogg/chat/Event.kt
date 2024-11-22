@@ -1,4 +1,4 @@
-package cc.flawcra.autogg.chat
+package cc.modlabs.autogg.chat
 
 enum class Event {
     START_GAME,

@@ -1,4 +1,4 @@
-package cc.flawcra.autogg
+package cc.modlabs.autogg
 
 enum class ServerConfig(val ip: String) {
     HYPIXEL("hypixel.net"),
