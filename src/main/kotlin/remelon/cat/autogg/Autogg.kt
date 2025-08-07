@@ -1,7 +1,8 @@
-package cc.modlabs.autogg
+package remelon.cat.autogg
 
-import cc.modlabs.autogg.chat.EventDetector
+import remelon.cat.autogg.chat.EventDetector
 import net.fabricmc.api.ClientModInitializer
+import remelon.cat.autogg.config.ConfigManager
 
 class Autogg : ClientModInitializer {
 
@@ -17,7 +18,9 @@ class Autogg : ClientModInitializer {
     lateinit var detector: EventDetector
 
     override fun onInitializeClient() {
+        ConfigManager.init() // ← load config here
         client = ClientWrapper()
         detector = EventDetector()
     }
+
 }

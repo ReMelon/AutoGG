@@ -1,4 +1,4 @@
-package cc.modlabs.autogg
+package remelon.cat.autogg
 
 import net.minecraft.client.MinecraftClient;
 
@@ -19,7 +19,8 @@ class ClientWrapper {
         return null
     }
 
-    fun sendMessage(messageToSend: String?) {
+    fun
+            sendMessage(messageToSend: String?) {
         client!!.networkHandler!!.sendChatMessage(messageToSend)
     }
 }

@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "cc.modlabs.autogg.mixin",
+  "package": "remelon.cat.autogg.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
     "MixinChatHud"

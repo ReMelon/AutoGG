@@ -1,7 +1,8 @@
-package cc.modlabs.autogg.chat
+package remelon.cat.autogg.chat
 
-import cc.modlabs.autogg.Autogg
-import cc.modlabs.autogg.ServerConfig
+import remelon.cat.autogg.Autogg
+import remelon.cat.autogg.ServerConfig
+import remelon.cat.autogg.config.ConfigManager.config
 
 class EventDetector {
     private val serverMessageEvents: MutableMap<ServerConfig, MutableMap<String, Event>> = mutableMapOf()
@@ -32,7 +33,6 @@ class EventDetector {
         hypixel["Winners -"] = Event.END_GAME
         hypixel["Sumo Duel -"] = Event.END_GAME
         hypixel["Most Wool Placed -"] = Event.END_GAME
-        hypixel["This game has been recorded."] = Event.END_GAME
 
         serverMessageEvents[ServerConfig.HYPIXEL] = hypixel
 
@@ -71,6 +71,8 @@ class EventDetector {
 
     fun scanForEvent(message: String): Event? {
         val serverConfig: ServerConfig = Autogg.INSTANCE.client.getCurrentServer() ?: return null
+
+        if (!config.enabled) return null
 
         if (serverConfig === ServerConfig.MINEPLEX) {
             if (message.contains("You have been sent from ") && message.contains(" to Lobby")) {

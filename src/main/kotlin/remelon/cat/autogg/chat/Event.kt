@@ -1,4 +1,4 @@
-package cc.modlabs.autogg.chat
+package remelon.cat.autogg.chat
 
 enum class Event {
     START_GAME,

@@ -1,6 +1,6 @@
-package cc.modlabs.autogg.mixin;
+package remelon.cat.autogg.mixin;
 
-import cc.modlabs.autogg.Autogg;
+import remelon.cat.autogg.Autogg;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.MessageIndicator;
 import net.minecraft.network.message.MessageSignatureData;
@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static remelon.cat.autogg.config.ConfigManager.config;
 
 @Mixin(ChatHud.class)
 public class MixinChatHud {
@@ -24,7 +26,7 @@ public class MixinChatHud {
             if (System.currentTimeMillis() - lastTime <= 3000) return;
             lastTime = ((int)System.currentTimeMillis());
 
-            Autogg.INSTANCE.client.sendMessage("gg");
+            Autogg.INSTANCE.client.sendMessage(config.getMessage());
         }
     }
 }

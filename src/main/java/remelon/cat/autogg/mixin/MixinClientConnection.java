@@ -1,8 +1,8 @@
-package cc.modlabs.autogg.mixin;
+package remelon.cat.autogg.mixin;
 
-import cc.modlabs.autogg.Autogg;
-import cc.modlabs.autogg.ServerConfig;
-import cc.modlabs.autogg.chat.EventDetector;
+import remelon.cat.autogg.Autogg;
+import remelon.cat.autogg.ServerConfig;
+import remelon.cat.autogg.chat.EventDetector;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;

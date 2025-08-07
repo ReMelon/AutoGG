@@ -5,19 +5,22 @@
   "name": "Auto GG",
   "description": "A simple Auto GG mod for Hypixel (and others)",
   "authors": [
+    "ReMelon",
     "ModLabs"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/auto-gg",
-    "issues": "https://github.com/ModLabsCC/AutoGG/issues",
-    "sources": "https://github.com/ModLabsCC/AutoGG"
+    "issues": "https://github.com/ReMelon/AutoGG/issues",
+    "sources": "https://github.com/ReMelon/AutoGG"
   },
   "license": "MIT",
   "icon": "assets/autogg/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "cc.modlabs.autogg.Autogg"
+      "remelon.cat.autogg.Autogg"
+    ],
+    "modmenu": [
+      "remelon.cat.autogg.plugin.ModMenuIntegration"
     ]
   },
   "mixins": [

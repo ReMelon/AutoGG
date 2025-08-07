@@ -41,10 +41,12 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
     modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
 
+    modApi("me.shedaniel.cloth:cloth-config-fabric:18.0.145")
+
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 
-    modLocalRuntime("com.terraformersmc", "modmenu", project.property("modmenu_version") as String)
+    modApi("com.terraformersmc", "modmenu", project.property("modmenu_version") as String)
 }
 
 modrinth {

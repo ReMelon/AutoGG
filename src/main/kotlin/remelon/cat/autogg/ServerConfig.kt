@@ -1,4 +1,4 @@
-package cc.modlabs.autogg
+package remelon.cat.autogg
 
 enum class ServerConfig(val ip: String) {
     HYPIXEL("hypixel.net"),
